@@ -49,7 +49,7 @@ async function getTickets(req, res) {
         var dateFormat = require('dateformat');
         newDate = dateFormat(newDate,"yyyy-mm-dd 00:00:00+00");
         console.log(newDate);
-        queryFilter.push("time >=" + newDate);
+        queryFilter.push("time >=" +"'" + newDate + "'");
     }
     if(queryJson.closed !=null){
         queryFilter.push("closed=" + queryJson["closed"]);
