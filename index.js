@@ -6,9 +6,10 @@ const dbFuncs = require('./dbFuncs');
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
-  .use((req, res) => {
+  .use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
   })
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
