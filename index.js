@@ -11,8 +11,8 @@ express()
   .get('/', (req, res) => res.render('pages/index'))
   .get('/about', (req, res) => res.json({ hello: 'world' }))
 
-  .get('/getalltickets', async (req, res) => dbFuncs.getAllTickets(req, res))
-  .get('/gettickets', async (req, res) => dbFuncs.getTickets(req, res))
+  .get('/getalltickets', (req, res) => dbFuncs.getAllTickets(req, res))
+  .get('/gettickets', (req, res) => dbFuncs.getTickets(req, res))
 
   .get('/db', async (req, res) => {
     try {
