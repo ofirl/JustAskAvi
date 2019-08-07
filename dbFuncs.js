@@ -20,6 +20,8 @@ async function executeQuery(query) {
 }
 
 async function getAllTickets(req, res) {
+    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     return res.json(await executeQuery('SELECT * FROM tickets'));
 }
 
