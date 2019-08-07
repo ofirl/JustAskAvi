@@ -38,7 +38,7 @@ async function getTickets(req, res) {
         let split = array_str[i].split('=');
         let key = split[0];
         let data = split[1];
-        data = data.substring(1,data.length-1)
+        //data = data.substring(1,data.length-1)
         queryJson[key] = data;
         
     }
@@ -104,9 +104,9 @@ async function addTicket(req, res) {
     let closed = false;
     var dateFormat = require('dateformat');
     var now = new Date();
-    now = dateFormat(now,"yyyy-mm-dd hh:MM:ss+00Z");
+    now = dateFormat(now,"yyyy-mm-dd 00:00:00+00");
     console.log(now);
-    let query = "SET system = " + system + ", time = " + now + ", closed = " + closed;
+    let query = "SET system = " + system + ", time = '" + now + "', closed = " + closed;
     console.log(query);
     console.log("update");
     return res.json(await executeQuery('UPDATE tickets ' + query));
