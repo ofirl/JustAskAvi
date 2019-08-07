@@ -82,14 +82,15 @@ async function addTicket(req, res) {
     let system = 'BW';
     let closed = false;
     let today = + new Date();
-    let query = "VALUES ( " + system + " , " + today + " , " + closed + " )";
+    let query = "SET system = " + system + ", time = " + today + ", closed = " + closed;
     console.log("update");
-    return res.json(await executeQuery('UPDATE INTO tickets ' + query));
+    return res.json(await executeQuery('UPDATE tickets ' + query));
 }
 
 
 module.exports = {
     getAllTickets,
     getTickets,
-    toggleTicket
+    toggleTicket,
+    addticket
 }
