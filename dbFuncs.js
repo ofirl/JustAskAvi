@@ -47,7 +47,7 @@ async function getTickets(req, res) {
         let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         let newDate = new Date(queryJson["time"]);
         var dateFormat = require('dateformat');
-        newDate = dateFormat(newDate,"yyyy-mm-ddT00:00:00.000Z");
+        newDate = dateFormat(newDate,"yyyy-mm-dd 00:00:00.000");
         console.log(newDate);
         queryFilter.push("time >=" + newDate);
     }
@@ -74,6 +74,7 @@ async function getTickets(req, res) {
 async function toggleTicket(req, res) {
     // toggle a ticket between closed and open
     // id of the ticket will be in the body of the request
+    console.log("toggle!!!!");
     console.log(req);
     console.log(req._parsedUrl.query);
     if (req._parsedUrl.query != null){
