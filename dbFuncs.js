@@ -85,7 +85,7 @@ async function addTicket(req, res) {
     var dateFormat = require('dateformat');
     var now = new Date();
     now = dateFormat("yyyy-mm-dd hh:MM:ss+00");
-    console(now);
+    console.log(now);
     let query = "SET system = " + system + ", time = " + now + ", closed = " + closed;
     console.log(query);
     console.log("update");
