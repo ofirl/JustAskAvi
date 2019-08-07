@@ -76,7 +76,8 @@ async function toggleTicket(req, res) {
     console.log(req._parsedUrl.query);
     if (req._parsedUrl.query != null){
         let array_str = decodeURI(req._parsedUrl.query).split('=');
-        let id = array_str[1].substring(1,data.length-1);
+        let id = array_str[1];
+        id = id.substring(1,id.length-1);
     
     console.log("the id is: " + id);
     let isclosed = await executeQuery('SELECT closed FROM tickets WHERE id = ' + id);
