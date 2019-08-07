@@ -83,6 +83,7 @@ async function addTicket(req, res) {
     let closed = false;
     let today = + new Date();
     let query = "SET system = " + system + ", time = " + today + ", closed = " + closed;
+    console.log(query);
     console.log("update");
     return res.json(await executeQuery('UPDATE tickets ' + query));
 }
