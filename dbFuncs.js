@@ -92,7 +92,9 @@ async function toggleTicket(req, res) {
         return res.json(await executeQuery('UPDATE tickets SET closed = ' + !isclosed + 
         ' WHERE id = ' + id));
     }
+    return res;
 }
+return res;
 }
 
 async function addTicket(req, res) {
