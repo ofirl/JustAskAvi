@@ -9,6 +9,7 @@ async function executeQuery(query) {
         const client = await pool.connect()
         const result = await client.query(query);
         const results = { 'results': (result) ? result.rows : null };
+        console.log(results);
         client.release();
         return results;
     } catch (err) {
