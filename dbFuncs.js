@@ -29,6 +29,7 @@ async function getTickets(req, res) {
     // get by id, default : ignore id
     console.log('testing');
     //console.log(req._parsed_url);
+    String str = decodeURI(req._parsedUrl.query);
     return res.json(decodeURI(req._parsedUrl.query));
     //return res.json(await executeQuery('SELECT * FROM tickets'));
 }
@@ -40,5 +41,6 @@ async function toggleTicket(req, res) {
 
 module.exports = {
     getAllTickets,
-    getTickets
+    getTickets,
+    toggleTicket
 }
