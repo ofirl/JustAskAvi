@@ -11,6 +11,7 @@ async function executeQuery(query) {
         const results = { 'results': (result) ? result.rows : null };
         console.log(results);
         client.release();
+        console.log('client released!');
         return results;
     } catch (err) {
         console.error(err);
