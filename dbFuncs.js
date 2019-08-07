@@ -9,6 +9,7 @@ async function executeQuery(query) {
         const client = await pool.connect()
         const result = await client.query(query);
         const results = { 'results': (result) ? result.rows : null };
+        console.log("results!");
         console.log(results);
         client.release();
         console.log('client released!');
@@ -47,7 +48,7 @@ async function getTickets(req, res) {
         let newDate = new Date(queryJson["time"]);
         newDate = new Date(Date.UTC(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(), newDate.getHours(), newDate.getMinutes(), newDate.getSeconds()));
         console.log(newDate);
-        queryFilter.push("time >=" + newDate);
+        queryFilter.push("time >=" + s);
     }
     if(queryJson.closed !=null){
         queryFilter.push("closed=" + queryJson["closed"]);
@@ -65,6 +66,8 @@ async function getTickets(req, res) {
   return getAllTickets(req, res);
     //return res.json(decodeURI(req._parsedUrl.query));
     //return res.json(await executeQuery('SELECT * FROM tickets'));
+ 
+
 }
 
 async function toggleTicket(req, res) {
@@ -76,6 +79,12 @@ async function addTicket(req, res) {
     console.log(req);
     // toggle a ticket between closed and open
     // id of the ticket will be in the body of the request
+    let system = 'BW';
+    let closed = false;
+    let today = + new Date();
+    let query = "VALUES ( " + system + " , " + today + " , " + closed + " )";
+    console.log("update");
+    return res.json(await executeQuery('UPDATE INTO tickets ' + query));
 }
 
 
