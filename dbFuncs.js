@@ -47,7 +47,7 @@ async function getTickets(req, res) {
         let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         let newDate = new Date(queryJson["time"]);
         var dateFormat = require('dateformat');
-        newDate = dateFormat(newDate,"yyyy-mm-dd 00:00:00.000");
+        newDate = dateFormat(newDate,"yyyy-mm-dd 00:00:00+00");
         console.log(newDate);
         queryFilter.push("time >=" + newDate);
     }
@@ -75,13 +75,12 @@ async function toggleTicket(req, res) {
     // toggle a ticket between closed and open
     // id of the ticket will be in the body of the request
     console.log("toggle!!!!");
+    console.log(req);
     console.log(req.body);
-    console.log(req._parsedUrl.query);
-    if (req._parsedUrl.query != null){
-        let array_str = decodeURI(req._parsedUrl.query).split('=');
-        let id = array_str[1];
-        id = id.substring(1,id.length-1);
-    
+    if (req.body.id == null){
+        res.send(false);
+    }
+    let id = req.body.id;
     console.log("the id is: " + id);
     let isclosed = await executeQuery('SELECT closed FROM tickets WHERE id = ' + id);
     if (isclosed != null && isclosed.length > 0){
@@ -89,12 +88,11 @@ async function toggleTicket(req, res) {
     }
     console.log(isclosed);
     if(isclosed != null) {
+        res.send(true);
         return res.json(await executeQuery('UPDATE tickets SET closed = ' + !isclosed + 
         ' WHERE id = ' + id));
     }
     return res;
-}
-return res;
 }
 
 async function addTicket(req, res) {
