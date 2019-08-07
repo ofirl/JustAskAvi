@@ -41,8 +41,8 @@ async function getTickets(req, res) {
         
     }
     console.log(queryJson);
-    if(queryJson.date != null){
-        queryFilter.push("date >=" + queryJson["date"]);
+    if(queryJson.time != null){
+        queryFilter.push("time >=" + queryJson["time"]);
     }
     if(queryJson.closed !=null){
         queryFilter.push("closed=" + queryJson["closed"]);
