@@ -17,16 +17,18 @@ async function executeQuery(query) {
     }
 }
 
-async function getAlllTickets(req, res) {
+async function getAllTickets(req, res) {
     return res.json(executeQuery('SELECT * FROM tickets'));
 }
 
 async function getTickets(req, res) {
-    console.log(req);
-    return res.json(executeQuery('SELECT * FROM tickets'));
+    console.log('testing');
+    //console.log(req._parsed_url);
+    return res.json(req.client);
+    //return res.json(executeQuery('SELECT * FROM tickets'));
 }
 
 module.exports = {
-    getAlllTickets,
+    getAllTickets,
     getTickets
 }
