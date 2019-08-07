@@ -73,6 +73,18 @@ async function getTickets(req, res) {
 async function toggleTicket(req, res) {
     // toggle a ticket between closed and open
     // id of the ticket will be in the body of the request
+    console.log(req._parsedUrl.query);
+    if (req._parsedUrl.query != null){
+        let array_str = decodeURI(req._parsedUrl.query).split('=');
+        let id = array_str[1];
+    }
+    let isclosed = await executeQuery('SELECT closed FROM tickets WHERE id = ' + id);
+    console.log(id);
+    console.log(isclosed);
+    if(isclosed != null) {
+        return res.json(await executeQuery('UPDATE tickets SET closed = ' + !closed + 
+        ' WHERE id = ' + id));
+    }
 }
 
 async function addTicket(req, res) {
@@ -84,7 +96,7 @@ async function addTicket(req, res) {
     let closed = false;
     var dateFormat = require('dateformat');
     var now = new Date();
-    now = dateFormat("yyyy-mm-dd hh:MM:ss+00");
+    now = dateFormat(now,"yyyy-mm-dd hh:MM:ss+00Z");
     console.log(now);
     let query = "SET system = " + system + ", time = " + now + ", closed = " + closed;
     console.log(query);
@@ -97,5 +109,6 @@ module.exports = {
     getAllTickets,
     getTickets,
     toggleTicket,
-    addTicket
+    addTicket,
+    toggleTicket
 }
