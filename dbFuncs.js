@@ -20,14 +20,14 @@ async function executeQuery(query) {
 }
 
 async function getAllTickets(req, res) {
-    return res.json(executeQuery('SELECT * FROM tickets'));
+    return res.json(await executeQuery('SELECT * FROM tickets'));
 }
 
 async function getTickets(req, res) {
     console.log('testing');
     //console.log(req._parsed_url);
-    return res.json(req.client);
-    //return res.json(executeQuery('SELECT * FROM tickets'));
+    //return res.json(req.client);
+    return res.json(await executeQuery('SELECT * FROM tickets'));
 }
 
 module.exports = {
