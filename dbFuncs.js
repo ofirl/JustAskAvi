@@ -47,7 +47,7 @@ async function getTickets(req, res) {
         let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         let newDate = new Date(queryJson["time"]);
         var dateFormat = require('dateformat');
-        newDate = dateFormat(newDate,"yyyy-mm-dd 00:00:00+00");
+        newDate = dateFormat(newDate,"yyyy-mm-ddT00:00:00.000Z");
         console.log(newDate);
         queryFilter.push("time >=" + newDate);
     }
