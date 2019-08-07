@@ -93,5 +93,5 @@ module.exports = {
     getAllTickets,
     getTickets,
     toggleTicket,
-    addticket
+    addTicket
 }
