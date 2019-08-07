@@ -31,7 +31,6 @@ async function getTickets(req, res) {
     //console.log(req._parsed_url);
     let array_str = decodeURI(req._parsedUrl.query).split('&');
     let queryFilter = [];
-    let n = 0;
     let queryJson = {};
     for (var i = 0; i<array_str.length; i++){
         let split = array_str[i].split('=');
@@ -43,21 +42,22 @@ async function getTickets(req, res) {
     }
     console.log(queryJson);
     if(queryJson.date != null){
-        queryFilter[n] = "date >=" + queryJson["date"];
-        n++;
+        queryFilter.push("date >=" + queryJson["date"]);
     }
     if(queryJson.closed !=null){
-        queryFilter[n] = "closed=" + queryJson["closed"];
-        n++;
+        queryFilter.push("closed=" + queryJson["closed"]);
     }
 
     if(queryJson.id !=null){
-        queryFilter[n] = "id=" + queryJson["id"];
-        n++;
+        queryFilter.pust("id=" + queryJson["id"]);
     }
     let filter = queryFilter.join(" AND ");
   console.log(filter);
-    return res.json(decodeURI(req._parsedUrl.query));
+  if (filter != null){
+    return res.json(await executeQuery('SELECT * FROM tickets WHERE ' + filter));
+  }
+  return getAllTickets(req, res)
+    //return res.json(decodeURI(req._parsedUrl.query));
     //return res.json(await executeQuery('SELECT * FROM tickets'));
 }
 
