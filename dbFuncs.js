@@ -31,7 +31,8 @@ async function getTickets(req, res) {
     // get by id, default : ignore id
     console.log('testing');
     //console.log(req._parsed_url);
-    String str = decodeURI(req._parsedUrl.query);
+    let array_str = decodeURI(req._parsedUrl.query).split('&');
+    array_str.forEach(console.log);
     return res.json(decodeURI(req._parsedUrl.query));
     //return res.json(await executeQuery('SELECT * FROM tickets'));
 }
