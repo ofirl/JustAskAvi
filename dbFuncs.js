@@ -17,11 +17,11 @@ async function executeQuery(query) {
     }
 }
 
-function getAlllTickets(req, res) {
+async function getAlllTickets(req, res) {
     return res.json(executeQuery('SELECT * FROM tickets'));
 }
 
-function getTickets(req, res) {
+async function getTickets(req, res) {
     console.log(req);
     return res.json(executeQuery('SELECT * FROM tickets'));
 }
