@@ -77,7 +77,7 @@ async function toggleTicket(req, res) {
     if (req._parsedUrl.query != null){
         let array_str = decodeURI(req._parsedUrl.query).split('=');
         let id = array_str[1].substring(1,data.length-1);
-    }
+    
     console.log("the id is: " + id);
     let isclosed = await executeQuery('SELECT closed FROM tickets WHERE id = ' + id);
     console.log(isclosed);
@@ -85,6 +85,7 @@ async function toggleTicket(req, res) {
         return res.json(await executeQuery('UPDATE tickets SET closed = ' + !closed + 
         ' WHERE id = ' + id));
     }
+}
 }
 
 async function addTicket(req, res) {
