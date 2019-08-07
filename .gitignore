@@ -1,8 +1,12 @@
+# Node build artifacts
 node_modules
-node_modules_linux
-coverage
-server/localdev-config.json
-server/localdev-config.json
-vcap-local.js
-credentials.json
-localdev-config.json
+npm-debug.log
+
+# Local development
+*.env
+*.dev
+.DS_Store
+
+# Docker
+Dockerfile
+docker-compose.yml

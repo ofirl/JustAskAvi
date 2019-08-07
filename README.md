@@ -1,111 +1,39 @@
-## JustAskAvi
+# node-js-getting-started
 
-Basic Web project with ExpressJS on NodeJS
+A barebones Node.js app using [Express 4](http://expressjs.com/).
 
-[![](https://img.shields.io/badge/IBM%20Cloud-powered-blue.svg)](https://bluemix.net)
-![Platform](https://img.shields.io/badge/platform-NODE-lightgrey.svg?style=flat)
+This application supports the [Getting Started with Node on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
 
-### Table of Contents
-* [Summary](#summary)
-* [Requirements](#requirements)
-* [Services](#services)
-* [Configuration](#configuration)
-* [Run](#run)
-* [Debug](#debug)
+## Running Locally
 
-<a name="summary"></a>
-### Summary
-The Web basic starter contains an opinionated set of files for web serving:
+Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
 
-- `public/index.html`
-- `public/404.html`
-- `public/500.html`
-
-
-
-<a name="enablement"></a>
-### IBM Cloud Enablement
-
-<a name="requirements"></a>
-### Requirements
-#### Local Development Tools Setup (optional)
-
-- Install the latest [NodeJS](https://nodejs.org/en/download/) 6+ LTS version.
-
-#### IBM Cloud development tools setup (optional)
-
-1. Install [IBM Cloud Developer Tools](https://console.bluemix.net/docs/cli/idt/setting_up_idt.html#add-cli) on your machine  
-2. Install the plugin with: `bx plugin install dev -r bluemix`
-
-
-#### IBM Cloud DevOps setup (optional)
-
-[![Create Toolchain](https://console.ng.bluemix.net/devops/graphics/create_toolchain_button.png)](https://console.ng.bluemix.net/devops/setup/deploy/)
-
-[IBM Cloud DevOps](https://www.ibm.com/cloud-computing/bluemix/devops) services provides toolchains as a set of tool integrations that support development, deployment, and operations tasks inside IBM Cloud. The "Create Toolchain" button creates a DevOps toolchain and acts as a single-click deploy to IBM Cloud including provisioning all required services. 
-
-***Note** you must publish your project to [Github](https://github.com/) for this to work.
-
-
-<a name="services"></a>
-### Services
-
-This WEB application is configured to connect to the following services: 
-#### Cloudant
-- [Bluemix Documentation](https://console.bluemix.net/docs/services/Cloudant/cloudant.html)
-- [SDK Documentation](./docs/services/service-cloudant.md)
-
-
-
-
-
-<a name="configuration"></a>
-### Configuration
-
-The project contains IBM Cloud specific files that are used to deploy the application as part of an IBM Cloud DevOps flow. The `.bluemix` directory contains files used to define the IBM Cloud toolchain and pipeline for your application. The `manifest.yml` file specifies the name of your application in IBM Cloud, the timeout value during deployment, and which services to bind to.
-
-Service credentials are taken from the VCAP_SERVICES environment variable if running IBM Cloud Cloud Foundry, from individual environment variables per service if running on IBM Cloud Container Service (see ./server/config/mappings.json), or from a config file if running locally, named`./server/config/localdev-config.js`.
-
-
-<a name="run"></a>
-### Run
-#### Using IBM Cloud development CLI
-The IBM Cloud development plugin makes it easy to compile and run your application if you do not have all of the tools installed on your computer yet. Your application will be compiled with Docker containers. To compile and run your app, run:
-
-```bash
-bx dev build
-bx dev run
+```sh
+$ git clone https://github.com/heroku/node-js-getting-started.git # or clone your own fork
+$ cd node-js-getting-started
+$ npm install
+$ npm start
 ```
 
+Your app should now be running on [localhost:5000](http://localhost:5000/).
 
-#### Using your local development environment
+## Deploying to Heroku
 
-
-
-##### Endpoints
-
-Your application is running at: `http://localhost:3000/` in your browser.
-
-- Health endpoint: `/appmetrics-dash`
-
-
-##### Session Store
-You may see this warning when running `bx dev run`:
 ```
-Warning: connect.session() MemoryStore is not
-designed for a production environment, as it will leak
-memory, and will not scale past a single process.
+$ heroku create
+$ git push heroku master
+$ heroku open
 ```
-When deploying to production, it is best practice to configure sessions to be stored in an external persistence service.
+or
 
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-<a name="debug"></a>
-### Debug
+## Documentation
 
-#### Using IBM Cloud development CLI
-To build and debug your app, run:
-```bash
-bx dev build --debug
-bx dev debug
-```
+For more information about using Node.js on Heroku, see these Dev Center articles:
 
+- [Getting Started with Node.js on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
+- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
+- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
+- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
+- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
