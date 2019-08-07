@@ -15,11 +15,10 @@ express()
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
   .get('/about', (req, res) => res.json({ hello: 'world' }))
-
   .get('/getalltickets', (req, res) => dbFuncs.getAllTickets(req, res))
   .get('/gettickets', (req, res) => dbFuncs.getTickets(req, res))
   .post('/toggleticket', (req, res) => dbFuncs.toggleTicket(req, res))
-  .post('/addticket', (req, res) => dbFuncs.addTicket(req, res))
+  .get('/addticket', (req, res) => dbFuncs.addTicket(req, res))
 
   .get('/db', async (req, res) => {
     try {
