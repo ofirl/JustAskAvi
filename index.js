@@ -13,6 +13,7 @@ express()
 
   .get('/getalltickets', (req, res) => dbFuncs.getAllTickets(req, res))
   .get('/gettickets', (req, res) => dbFuncs.getTickets(req, res))
+  .post('/toggleticket', (req, res) => dbFuncs.toggleTicket(req, res))
 
   .get('/db', async (req, res) => {
     try {

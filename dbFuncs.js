@@ -24,10 +24,18 @@ async function getAllTickets(req, res) {
 }
 
 async function getTickets(req, res) {
+    // get ticket by date, default : all tickets ever
+    // get ticket by closed : default get all tickets no matter if closed or open
+    // get by id, default : ignore id
     console.log('testing');
     //console.log(req._parsed_url);
-    //return res.json(req.client);
-    return res.json(await executeQuery('SELECT * FROM tickets'));
+    return res.json(decodeURI(req._parsedUrl.query));
+    //return res.json(await executeQuery('SELECT * FROM tickets'));
+}
+
+async function toggleTicket(req, res) {
+    // toggle a ticket between closed and open
+    // id of the ticket will be in the body of the request
 }
 
 module.exports = {
