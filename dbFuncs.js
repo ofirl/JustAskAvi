@@ -73,6 +73,7 @@ async function getTickets(req, res) {
 async function toggleTicket(req, res) {
     // toggle a ticket between closed and open
     // id of the ticket will be in the body of the request
+    console.log(req);
     console.log(req._parsedUrl.query);
     if (req._parsedUrl.query != null){
         let array_str = decodeURI(req._parsedUrl.query).split('=');
