@@ -77,7 +77,7 @@ async function toggleTicket(req, res) {
 
 async function addTicket(req, res) {
     console.log("add");
-    console.log(req);
+    //console.log(req);
     // toggle a ticket between closed and open
     // id of the ticket will be in the body of the request
     let system = 'BW';
