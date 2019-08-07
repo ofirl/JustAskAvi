@@ -81,8 +81,10 @@ async function addTicket(req, res) {
     // id of the ticket will be in the body of the request
     let system = 'BW';
     let closed = false;
-    let today = + new Date();
-    let query = "SET system = " + system + ", time = " + today + ", closed = " + closed;
+    var dateFormat = require('dateformat');
+    var now = new Date();
+    now = dateFormat("yyyy-mm-dd hh:MM:ss+00");
+    let query = "SET system = " + system + ", time = " + now + ", closed = " + closed;
     console.log(query);
     console.log("update");
     return res.json(await executeQuery('UPDATE tickets ' + query));
