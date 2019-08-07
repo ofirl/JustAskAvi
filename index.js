@@ -19,7 +19,9 @@ express()
   .get('/db', async (req, res) => {
     try {
       const client = await pool.connect()
+      console.log(client);
       const result = await client.query('SELECT * FROM tickets');
+      console.log(result);
       const results = { 'results': (result) ? result.rows : null};
       console.log(results);
       res.render('pages/db', results );
