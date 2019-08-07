@@ -28,7 +28,8 @@ async function getTickets(req, res) {
     // get ticket by closed : default get all tickets no matter if closed or open
     // get by id, default : ignore id
     console.log('testing');
-    //console.log(req._parsed_url);
+    console.log(req._parsedUrl.query);
+ if(req._parsedUrl.query != null)  { 
     let array_str = decodeURI(req._parsedUrl.query).split('&');
     let queryFilter = [];
     let queryJson = {};
@@ -56,7 +57,8 @@ async function getTickets(req, res) {
   if (filter != null){
     return res.json(await executeQuery('SELECT * FROM tickets WHERE ' + filter));
   }
-  return getAllTickets(req, res)
+}
+  return getAllTickets(req, res);
     //return res.json(decodeURI(req._parsedUrl.query));
     //return res.json(await executeQuery('SELECT * FROM tickets'));
 }
