@@ -43,7 +43,10 @@ async function getTickets(req, res) {
     }
     console.log(queryJson);
     if(queryJson.time != null){
-        queryFilter.push("time >=" + queryJson["time"]);
+        let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        let newDate = new Date(queryJson["time"]).toLocaleString("en-US",{timeZone: timeZone});
+        console.log(newDate);
+        queryFilter.push("time >=" + newDate);
     }
     if(queryJson.closed !=null){
         queryFilter.push("closed=" + queryJson["closed"]);
