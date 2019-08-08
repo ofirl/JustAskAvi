@@ -97,16 +97,25 @@ async function addTicket(req, res) {
     console.log("addTicketFunc");
     let system = req.body.system;
     let id = req.body.id;
+    let tag = req.body.tag;
+    let info = req.body.info;
     var dateFormat = require('dateformat');
-    var now = new Date();
-    now = dateFormat(now, "yyyy-mm-dd 00:00:00+00");
-    // console.log(now);
+    var now = new Date().dateFormat(now, "yyyy-mm-dd 00:00:00+00");
+
     if (id != null) {
-        //     let query = "SET system = " + system;
-        //     console.log(query);
-        //     console.log("update");
-        //     await executeQuery('UPDATE tickets ' + query + " WHERE id = " + id);
-        //     return id;
+        let query = [];
+        if (tag != null)
+            query.push("tag = '{" + tag + "}'");
+        if (info != null)
+            query.push("info = '{" + info + "}'");
+
+        query = 'SET' + query.join(',');
+
+        console.log(query);
+        await executeQuery('UPDATE tickets ' + query + " WHERE id = " + id);
+
+        res.json({ id: id });
+        return res;
     }
     else {
         id = await executeQuery('SELECT max(id) from tickets');
@@ -116,7 +125,7 @@ async function addTicket(req, res) {
         let query = "INSERT into tickets (id, system, time) VALUES (" + id + ",'" + system + "' ,'" + now + "')";
         await executeQuery(query);
         //id = await executeQuery('SELECT max(id) from tickets');
-        res.json({id: id});
+        res.json({ id: id });
         return res;
         // }
     }
