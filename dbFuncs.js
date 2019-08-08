@@ -99,7 +99,7 @@ async function addTicket(req, res) {
     console.log(req);
     // toggle a ticket between closed and open
     // id of the ticket will be in the body of the request
-    let system = 'BW';
+    let system = req.body.system;
     let closed = false;
     let id = req.body.id;
     var dateFormat = require('dateformat');
