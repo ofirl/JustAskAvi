@@ -75,7 +75,7 @@ async function toggleTicket(req, res) {
     // toggle a ticket between closed and open
     // id of the ticket will be in the body of the request
     console.log("toggle!!!!");
-    console.log(req);
+    console.log(req.params);
     console.log(req.body);
     if (req.body.id == null){
         res.send(false);
