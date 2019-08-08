@@ -115,7 +115,7 @@ async function addTicket(req, res) {
         if (info != null)
             query.push("info = '{" + info + "}'");
 
-        query = 'SET' + query.join(',');
+        query = 'SET ' + query.join(',');
 
         console.log(query);
         await executeQuery('UPDATE tickets ' + query + " WHERE id = " + id);
