@@ -116,7 +116,8 @@ async function addTicket(req, res) {
         let query = "INSERT into tickets (id, system, time) VALUES (" + id + ",'" + system + "' ,'" + now + "')";
         await executeQuery(query);
         //id = await executeQuery('SELECT max(id) from tickets');
-        return id;
+        res.json({id: id});
+        return res;
         // }
     }
 }
