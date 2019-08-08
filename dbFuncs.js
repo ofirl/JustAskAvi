@@ -102,11 +102,11 @@ async function addTicket(req, res) {
     now = dateFormat(now, "yyyy-mm-dd 00:00:00+00");
     // console.log(now);
     if (id != null) {
-    //     let query = "SET system = " + system;
-    //     console.log(query);
-    //     console.log("update");
-    //     await executeQuery('UPDATE tickets ' + query + " WHERE id = " + id);
-    //     return id;
+        //     let query = "SET system = " + system;
+        //     console.log(query);
+        //     console.log("update");
+        //     await executeQuery('UPDATE tickets ' + query + " WHERE id = " + id);
+        //     return id;
     }
     else {
         let query = "INSERT into tickets (system, time) VALUES (" + system + " ," + now + ")";
@@ -115,7 +115,8 @@ async function addTicket(req, res) {
         console.log('maxIdCheck');
         console.log(id);
         return id[0].id;
-    // }
+        // }
+    }
 }
 
 
