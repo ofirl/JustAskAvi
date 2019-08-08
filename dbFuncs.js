@@ -95,6 +95,7 @@ async function toggleTicket(req, res) {
 
 async function addTicket(req, res) {
     console.log("addTicketFunc");
+    console.log(req.body);
     let system = req.body.system;
     console.log(system);
     let id = req.body.id;
@@ -105,7 +106,7 @@ async function addTicket(req, res) {
     console.log(info);
     var dateFormat = require('dateformat');
     var now = new Date();
-    now = dateFormat(now, "yyyy-mm-dd 00:00:00+00");
+    now = dateFormat(now, "yyyy-mm-dd hh:MM:ss+00");
 
     if (id != null) {
         let query = [];
