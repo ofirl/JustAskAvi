@@ -113,7 +113,7 @@ async function addTicket(req, res) {
         if (tag != null)
             query.push("tag = '{" + tag + "}'");
         if (info != null)
-            query.push("info = '{" + info + "}'");
+            query.push("info = '" + info + "'");
 
         query = 'SET ' + query.join(',');
 
