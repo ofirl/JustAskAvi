@@ -100,7 +100,8 @@ async function addTicket(req, res) {
     let tag = req.body.tag;
     let info = req.body.info;
     var dateFormat = require('dateformat');
-    var now = new Date().dateFormat(now, "yyyy-mm-dd 00:00:00+00");
+    var now = new Date();
+    now = dateFormat(now, "yyyy-mm-dd 00:00:00+00");
 
     if (id != null) {
         let query = [];
