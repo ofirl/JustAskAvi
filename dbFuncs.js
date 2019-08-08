@@ -101,7 +101,7 @@ async function addTicket(req, res) {
     // id of the ticket will be in the body of the request
     let system = 'BW';
     let closed = false;
-    let id = 1;
+    let id = req.body.id;
     var dateFormat = require('dateformat');
     var now = new Date();
     now = dateFormat(now,"yyyy-mm-dd 00:00:00+00");
