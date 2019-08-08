@@ -74,26 +74,22 @@ async function getTickets(req, res) {
 async function toggleTicket(req, res) {
     // toggle a ticket between closed and open
     // id of the ticket will be in the body of the request
-    console.log("toggle start!!!!");
-    console.log(Object.keys(req));
-    console.log("toggle end!!!!");
+    // console.log("toggle start!!!!");
+    // console.log(Object.keys(req));
+    // console.log("toggle end!!!!");
     //console.log(req.body);
     if (req.body.id == null){
         res.send(false);
     }
     let id = req.body.id;
-    console.log("the id is: " + id);
     let isclosed = await executeQuery('SELECT closed FROM tickets WHERE id = ' + id);
     if (isclosed != null && isclosed.length > 0){
-        isclosed = isclosed[0][closed];
+        isclosed = isclosed[0]['closed'];
     }
-    console.log(isclosed);
+    // console.log(isclosed);
     if(isclosed != null) {
-        console.log('isittrue?');
         res.send(true);
-        console.log('itis!');
-        return res.json(await executeQuery('UPDATE tickets SET closed = ' + !isclosed + 
-        ' WHERE id = ' + id));
+        return res.json(await executeQuery('UPDATE tickets SET closed = ' + !isclosed + ' WHERE id = ' + id));
     }
     return res;
 }
