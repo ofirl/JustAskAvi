@@ -102,14 +102,25 @@ async function addTicket(req, res) {
     // id of the ticket will be in the body of the request
     let system = 'BW';
     let closed = false;
+    let id = 1;
     var dateFormat = require('dateformat');
     var now = new Date();
     now = dateFormat(now,"yyyy-mm-dd 00:00:00+00");
     console.log(now);
+    if (id != null){
     let query = "SET system = " + system + ", time = '" + now + "', closed = " + closed;
     console.log(query);
     console.log("update");
-    return res.json(await executeQuery('UPDATE tickets ' + query));
+    await executeQuery('UPDATE tickets ' + query + " WHERE id = " + id);
+    return id;
+    }
+    else{
+    let query = "INSERT into tickets (id,system,time,closed) VALUES (" + id +
+    ", " + system + " ," + now + ", " + closed + ")";
+    await executeQuery(query);
+    id = executeQuery('SELECT max(id) from tickets')
+    return id[0][0];
+    }
 }
 
 
