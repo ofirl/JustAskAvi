@@ -95,20 +95,18 @@ async function toggleTicket(req, res) {
 
 async function addTicket(req, res) {
     console.log("addTicketFunc");
-    // toggle a ticket between closed and open
-    // id of the ticket will be in the body of the request
     let system = req.body.system;
     let id = req.body.id;
     var dateFormat = require('dateformat');
     var now = new Date();
     now = dateFormat(now, "yyyy-mm-dd 00:00:00+00");
-    console.log(now);
+    // console.log(now);
     if (id != null) {
-        let query = "SET system = " + system + ", time = '" + now + "', closed = " + closed;
-        console.log(query);
-        console.log("update");
-        await executeQuery('UPDATE tickets ' + query + " WHERE id = " + id);
-        return id;
+    //     let query = "SET system = " + system;
+    //     console.log(query);
+    //     console.log("update");
+    //     await executeQuery('UPDATE tickets ' + query + " WHERE id = " + id);
+    //     return id;
     }
     else {
         let query = "INSERT into tickets (system, time) VALUES (" + system + " ," + now + ")";
@@ -117,7 +115,7 @@ async function addTicket(req, res) {
         console.log('maxIdCheck');
         console.log(id);
         return id[0].id;
-    }
+    // }
 }
 
 
