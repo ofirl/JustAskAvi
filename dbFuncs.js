@@ -109,12 +109,14 @@ async function addTicket(req, res) {
         //     return id;
     }
     else {
-        let query = "INSERT into tickets (system, time) VALUES ('" + system + "' ,'" + now + "')";
-        await executeQuery(query);
-        id = executeQuery('SELECT max(id) from tickets')
+        id = await executeQuery('SELECT max(id) from tickets');
         console.log('maxIdCheck');
         console.log(id);
-        return id[0].id;
+        id = id[0].id;
+        let query = "INSERT into tickets (id, system, time) VALUES (" + id + ",'" + system + "' ,'" + now + "')";
+        await executeQuery(query);
+        //id = await executeQuery('SELECT max(id) from tickets');
+        return id;
         // }
     }
 }
