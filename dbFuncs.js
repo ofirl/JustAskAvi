@@ -112,7 +112,7 @@ async function addTicket(req, res) {
         id = await executeQuery('SELECT max(id) from tickets');
         console.log('maxIdCheck');
         console.log(id);
-        id = id[0].id;
+        id = id.results[0].max;
         let query = "INSERT into tickets (id, system, time) VALUES (" + id + ",'" + system + "' ,'" + now + "')";
         await executeQuery(query);
         //id = await executeQuery('SELECT max(id) from tickets');
