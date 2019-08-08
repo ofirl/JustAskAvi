@@ -77,7 +77,7 @@ async function toggleTicket(req, res) {
     console.log("toggle start!!!!");
     console.log(Object.keys(req));
     console.log("toggle end!!!!");
-    console.log(req.body);
+    //console.log(req.body);
     if (req.body.id == null){
         res.send(false);
     }
@@ -89,7 +89,9 @@ async function toggleTicket(req, res) {
     }
     console.log(isclosed);
     if(isclosed != null) {
+        console.log('isittrue?');
         res.send(true);
+        console.log('itis!');
         return res.json(await executeQuery('UPDATE tickets SET closed = ' + !isclosed + 
         ' WHERE id = ' + id));
     }
