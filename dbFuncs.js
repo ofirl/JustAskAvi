@@ -1,7 +1,7 @@
 const { Pool } = require('pg');
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: false
+    connectionString: process.env.DATABASE_URL,
+    ssl: false
 });
 
 async function executeQuery(query) {
@@ -30,44 +30,44 @@ async function getTickets(req, res) {
     // get by id, default : ignore id
     console.log('testing');
     console.log(req._parsedUrl.query);
- if(req._parsedUrl.query != null)  { 
-    let array_str = decodeURI(req._parsedUrl.query).split('&');
-    let queryFilter = [];
-    let queryJson = {};
-    for (var i = 0; i<array_str.length; i++){
-        let split = array_str[i].split('=');
-        let key = split[0];
-        let data = split[1];
-        //data = data.substring(1,data.length-1)
-        queryJson[key] = data;
-        
-    }
-    console.log(queryJson);
-    if(queryJson.time != null){
-        let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        let newDate = new Date(queryJson["time"]);
-        var dateFormat = require('dateformat');
-        newDate = dateFormat(newDate,"yyyy-mm-dd 00:00:00+00");
-        console.log(newDate);
-        queryFilter.push("time >=" +"'" + newDate + "'");
-    }
-    if(queryJson.closed !=null){
-        queryFilter.push("closed=" + queryJson["closed"]);
-    }
+    if (req._parsedUrl.query != null) {
+        let array_str = decodeURI(req._parsedUrl.query).split('&');
+        let queryFilter = [];
+        let queryJson = {};
+        for (var i = 0; i < array_str.length; i++) {
+            let split = array_str[i].split('=');
+            let key = split[0];
+            let data = split[1];
+            //data = data.substring(1,data.length-1)
+            queryJson[key] = data;
 
-    if(queryJson.id !=null){
-        queryFilter.pust("id=" + queryJson["id"]);
+        }
+        console.log(queryJson);
+        if (queryJson.time != null) {
+            let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            let newDate = new Date(queryJson["time"]);
+            var dateFormat = require('dateformat');
+            newDate = dateFormat(newDate, "yyyy-mm-dd 00:00:00+00");
+            console.log(newDate);
+            queryFilter.push("time >=" + "'" + newDate + "'");
+        }
+        if (queryJson.closed != null) {
+            queryFilter.push("closed=" + queryJson["closed"]);
+        }
+
+        if (queryJson.id != null) {
+            queryFilter.pust("id=" + queryJson["id"]);
+        }
+        let filter = queryFilter.join(" AND ");
+        console.log(filter);
+        if (filter != null) {
+            return res.json(await executeQuery('SELECT * FROM tickets WHERE ' + filter));
+        }
     }
-    let filter = queryFilter.join(" AND ");
-  console.log(filter);
-  if (filter != null){
-    return res.json(await executeQuery('SELECT * FROM tickets WHERE ' + filter));
-  }
-}
-  return getAllTickets(req, res);
+    return getAllTickets(req, res);
     //return res.json(decodeURI(req._parsedUrl.query));
     //return res.json(await executeQuery('SELECT * FROM tickets'));
- 
+
 
 }
 
@@ -78,18 +78,15 @@ async function toggleTicket(req, res) {
     // console.log(Object.keys(req));
     // console.log("toggle end!!!!");
     //console.log(req.body);
-    if (req.body.id == null){
+    if (req.body.id == null) {
         res.send(false);
     }
     let id = req.body.id;
     let isclosed = await executeQuery('SELECT closed FROM tickets WHERE id = ' + id);
-    console.log('isClosed');
-    console.log(isclosed);
     if (isclosed != null && isclosed.results != null && isclosed.results.length > 0) {
         isclosed = isclosed.results[0]['closed'];
     }
-    console.log(isclosed);
-    if(isclosed != null) {
+    if (isclosed != null) {
         res.send(true);
         return res.json(await executeQuery('UPDATE tickets SET closed = ' + !isclosed + ' WHERE id = ' + id));
     }
@@ -97,30 +94,29 @@ async function toggleTicket(req, res) {
 }
 
 async function addTicket(req, res) {
-    console.log("add");
-    console.log(req);
+    console.log("addTicketFunc");
     // toggle a ticket between closed and open
     // id of the ticket will be in the body of the request
     let system = req.body.system;
-    let closed = false;
     let id = req.body.id;
     var dateFormat = require('dateformat');
     var now = new Date();
-    now = dateFormat(now,"yyyy-mm-dd 00:00:00+00");
+    now = dateFormat(now, "yyyy-mm-dd 00:00:00+00");
     console.log(now);
-    if (id != null){
-    let query = "SET system = " + system + ", time = '" + now + "', closed = " + closed;
-    console.log(query);
-    console.log("update");
-    await executeQuery('UPDATE tickets ' + query + " WHERE id = " + id);
-    return id;
+    if (id != null) {
+        let query = "SET system = " + system + ", time = '" + now + "', closed = " + closed;
+        console.log(query);
+        console.log("update");
+        await executeQuery('UPDATE tickets ' + query + " WHERE id = " + id);
+        return id;
     }
-    else{
-    let query = "INSERT into tickets (id,system,time,closed) VALUES (" + id +
-    ", " + system + " ," + now + ", " + closed + ")";
-    await executeQuery(query);
-    id = executeQuery('SELECT max(id) from tickets')
-    return id[0][0];
+    else {
+        let query = "INSERT into tickets (system, time) VALUES (" + system + " ," + now + ")";
+        await executeQuery(query);
+        id = executeQuery('SELECT max(id) from tickets')
+        console.log('maxIdCheck');
+        console.log(id);
+        return id[0].id;
     }
 }
 
