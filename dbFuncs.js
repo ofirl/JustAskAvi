@@ -124,6 +124,7 @@ async function addTicket(req, res) {
         return res;
     }
     else {
+        console.log('insert new ticket');
         id = await executeQuery('SELECT max(id) from tickets');
         console.log('maxIdCheck');
         console.log(id);
